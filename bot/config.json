@@ -1,0 +1,11 @@
+{
+  "debug": true,
+  "lock": false,
+  "maxHours": 12,
+  "maxOutreach": 6,
+  "tipRate": 0.15,
+  "prefix": "$",
+  "commentPrefix": "//",
+  "requestHelp": "?",
+  "cooldown": 3
+}
