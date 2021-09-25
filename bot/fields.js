@@ -66,8 +66,8 @@ const fields = [
         validate: {
             input: [
                 {
-                    condition: (value) => !!value.match(/other|text|voice|group|outreach/gi),
-                    error: "The \`Volunteer Type\` field should contain one of the following key words: text, voice, group, outreach, other.",
+                    condition: (value) => !!value.match(/other|text|voice|group|outreach|in person/gi),
+                    error: "The \`Volunteer Type\` field should contain one of the following key words: text, voice, group, outreach, in person, other.",
                 },
             ],
             data: [],
@@ -81,11 +81,12 @@ const fields = [
         },
         process(value) {
             const words = [
-                { key: !!value.match(/other/gi), weight: 1 },
-                { key: !!value.match(/text/gi), weight: 2 },
-                { key: !!value.match(/voice/gi), weight: 3 },
-                { key: !!value.match(/group/gi), weight: 4 },
-                { key: !!value.match(/outreach/gi), weight: 5 },
+                { key: !!value.match(/\bother\b/gi), weight: 0 },
+                { key: !!value.match(/\btext\b/gi), weight: 1 },
+                { key: !!value.match(/\bvoice\b/gi), weight: 2 },
+                { key: !!value.match(/\bin\s*person\b/gi), weight: 3 },
+                { key: !!value.match(/\bgroup\b/gi), weight: 4 },
+                { key: !!value.match(/\boutreach\b/gi), weight: 5 },
             ];
 
             let heaviest = 0;
@@ -96,12 +97,13 @@ const fields = [
 
             switch(heaviest) {
                 case 0:
-                case 1:
                     return "other";
-                case 2:
+                case 1:
                     return "private text";
-                case 3:
+                case 2:
                     return "private voice";
+                case 3:
+                    return "in person";
                 case 4:
                     return "group";
                 case 5:
@@ -117,10 +119,10 @@ const fields = [
         labels: ["duration", "dr"],
         prepare(value, label) {
             let newValue = extract(label, value).trim().toLowerCase();
-	    newValue = newValue.replace(otherMinsRegex, "m");
-	    newValue = newValue.replace(otherHoursRegex, "h");
-	    newValue = newValue.replace(manySpacesRegex, " ");
-	    newValue = newValue.replace(mhSpaceRegex, "");
+            newValue = newValue.replace(otherMinsRegex, "m");
+            newValue = newValue.replace(otherHoursRegex, "h");
+            newValue = newValue.replace(manySpacesRegex, " ");
+            newValue = newValue.replace(mhSpaceRegex, "");
             return newValue;
 	    
         },

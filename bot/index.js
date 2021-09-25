@@ -1,7 +1,9 @@
 // Environment variables.
 require('dotenv').config();
+const createLogger = require('../logger');
 const channelId = process.env.CHANNEL_ID;
 const host = process.env.HOST;
+const logger = createLogger(__filename);
 
 // Configuration Options.
 let config = require('./config.json');
@@ -28,7 +30,7 @@ const commandFiles = fs.readdirSync(path.resolve(__dirname, "./commands")).filte
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     if (command.name == LR_CMD_NAME) {
-        console.error(`A command cannot be named "${LR_CMD_NAME}" since that is reserved for log requests. Your "${LR_CMD_NAME}" command has been ignored.`);
+        logger.error(`A command cannot be named "${LR_CMD_NAME}" since that is reserved for log requests. Your "${LR_CMD_NAME}" command has been ignored.`);
         continue;
     }
 	client.commands.set(command.name, command);
@@ -58,12 +60,12 @@ client.once('ready', async () => {
         }
     
         await channel.send(WELCOME);
-        console.log('Ready!');
+        logger.error('Ready!');
 
     } catch (e) {
         await channel.send(API_DOWN);
         if (config.debug) await channel.send(debugText("Javascript Error", e.stack));
-        console.error(e);
+        logger.error(e);
         return;
     }
 });
@@ -136,7 +138,7 @@ client.on('message', async (message) => {
                 await message.react('⚠️');
                 if (config.debug) await message.reply(debugText("Javascript Error", e.stack));
                 await message.reply('*I had trouble trying to execute that command.*');
-                console.error(e.stack);
+                logger.error(e.stack);
                 return;
             }
         }
@@ -388,7 +390,7 @@ client.on('message', async (message) => {
 
         // Log all requests sent to bot console.
         if (config.debug)
-            console.log(serverLog(post, response));
+            logger.error(serverLog(post, response));
 
         // Send confirmation receipt.
         await message.react("✅");
@@ -405,7 +407,7 @@ client.on('message', async (message) => {
     // (debug) forward error to discord.
     } catch (e) {
         if (config.debug) await message.reply(debugText("Javascript Error", e.stack));
-        console.error(e.stack);
+        logger.error(e.stack);
         return;
     }
 });
