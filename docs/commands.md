@@ -497,35 +497,35 @@ If you are a superuser:
 
 The `mininpersonhours` command requires an argument.
 
-> $maxhours
+> $mininpersonhours
 
 ⚠️
 
 The `mininpersonhours` command requires the argument be a number between 1 and 24 (inclusive).
 
-> $maxhours foobar
+> $mininpersonhours foobar
 
 ⚠️
 
-> $maxhours -3
+> $mininpersonhours -3
 
 ⚠️
 
-> $maxhours 30
+> $mininpersonhours 30
 
 ⚠️
 
 If a decimal is passed as an argument, it will be converted to a whole number. In these examples, the argument converts to `1`:
 
-> $maxhours 1.123
+> $mininpersonhours 1.123
 
 ✅
 
-> $maxhours 1.50
+> $mininpersonhours 1.50
 
 ✅
 
-> $maxhours 1.9999
+> $mininpersonhours 1.9999
 
 ✅
 

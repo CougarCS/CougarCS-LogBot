@@ -1,5 +1,5 @@
 # Change Log
-## Version 1.1.2 - 12/13/2021
+## Version 1.1.2 - 9/25/2021
   - Improved logging to minimize data usage.
   - Added `$mininpersonhours` command.
   - Added `in person` volunteer type.
@@ -8,6 +8,7 @@
   - The `Duration` field will be set to `minInPersonHours` if it is less than `minInPersonHours` and volunteer type is `in person`.
   - The `Duration` field will be unaffected if it is more than `minInPersonHours` and volunteer type is `in person`.
   - Removed unnecessary functionality.
+  
 ## Version 1.1.0 - 12/13/2020
   - Added `Outreach Count` field.
   - Added external validation for `Outreach Count` field.
