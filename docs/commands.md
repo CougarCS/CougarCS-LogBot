@@ -479,6 +479,102 @@ The `maxoutreach` command does not work if the `lock` command has been called.
 
 ⚠️
 
+## The `mininpersonhours` command.
+
+**The `mininpersonhours` command is for superusers.**
+
+If you are *not* a superuser:
+
+> $mininpersonhours 12
+
+⚠️
+
+If you are a superuser:
+
+> $mininpersonhours 12
+
+✅
+
+The `mininpersonhours` command requires an argument.
+
+> $maxhours
+
+⚠️
+
+The `mininpersonhours` command requires the argument be a number between 1 and 24 (inclusive).
+
+> $maxhours foobar
+
+⚠️
+
+> $maxhours -3
+
+⚠️
+
+> $maxhours 30
+
+⚠️
+
+If a decimal is passed as an argument, it will be converted to a whole number. In these examples, the argument converts to `1`:
+
+> $maxhours 1.123
+
+✅
+
+> $maxhours 1.50
+
+✅
+
+> $maxhours 1.9999
+
+✅
+
+The `mininpersonhours` command floors the number of hours that can be logged in a single post if volunteer type is `in person`. Note: The `Duration` field of all of the log requests below are automatically set to 2 hours.
+
+> $mininpersonhours 2
+
+✅
+
+```
+Name: John Doe
+Date: 03/08/2020
+Volunteer Type: in person
+Comment: Helped someone with linked lists.
+
+✅
+```
+
+```
+Name: John Doe
+Date: 03/08/2020
+Volunteer Type: text
+Duration: 1h
+Comment: Helped someone with linked lists.
+
+✅
+```
+
+The `mininpersonhours` command floors the number of hours that can be logged in a single post if volunteer type is `in person`. Note: The `Duration` field of the log requests below is unaffected.
+
+```
+Name: John Doe
+Date: 03/08/2020
+Volunteer Type: text
+Duration: 3h
+Comment: Helped someone with linked lists.
+
+✅
+
+The `mininpersonhours` command does not work if the `lock` command has been called.
+
+> $lock
+
+✅
+
+> $mininpersonhours 12
+
+⚠️
+
 ## The `cooldown` command.
 
 **The `cooldown` command is for superusers.**

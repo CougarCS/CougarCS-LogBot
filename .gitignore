@@ -5,6 +5,7 @@ venv
 server
 *.pyc 
 api/populate_db
+hidden
 
 
 

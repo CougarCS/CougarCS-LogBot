@@ -315,9 +315,14 @@ client.on('message', async (message) => {
         if (!post.hasOwnProperty("volunteer type"))
             errors.push("The \`Volunteer Type\` field should not be omitted.");
 
+        if (post.hasOwnProperty("volunteer type") && post["volunteer type"] === "in person") {
+            if (!post.hasOwnProperty("duration")) post.duration = config.minInPersonHours;
+            else if (post.duration < config.minInPersonHours) post.duration = config.minInPersonHours;
+        }
+
         // If post is of type outreach, duration is ignored.
         if (post.hasOwnProperty("volunteer type") && post["volunteer type"] === "outreach") {
-            post.duration = null;
+            post.duration = 0;
 
             // If an outreach count is not declared, then it is set to 1.
             if (!post.hasOwnProperty("outreach count"))

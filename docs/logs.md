@@ -336,7 +336,7 @@ Comment: Helped someone with linked lists.
 ⚠️
 ```
 
-The `Volunteer Type` field should contain one of the following keywords: text, voice, group, outreach, other
+The `Volunteer Type` field should contain one of the following keywords: text, voice, in person, group, outreach, other
 
 ```
 Name: John Doe
@@ -374,6 +374,8 @@ NOTE: Use the **text** keyword when assisting a user via written correspondence.
 
 NOTE: Use the **voice** keyword when assisting a user via audio or video correspondence.
 
+NOTE: Use the **in person** keyword when assisting a user in person.
+
 NOTE: Use the **group** keyword when assisting more than one user simultaneously.
 
 NOTE: Use the **outreach** keyword when advertising CougarCS to other potential users. 
@@ -385,6 +387,14 @@ NOTE: When using the **other** keyword, the `Comment` field must be submitted.
 NOTE: When using the **outreach** keyword, the `Duration` field may be omitted.
 
 NOTE: When using the **outreach** keyword, the `Outreach Field` may be used to modify your log request.
+
+NOTE: When using the **in person** keyword, the `Duration` field may be omitted.
+
+NOTE: When using the **in person** keyword, the `Duration` field may be modified if not enough hours are logged.
+
+NOTE: When using the **in person** keyword, the `Duration` field *will not* modified if *too many* hours are logged.
+
+NOTE: When using the **in person** keyword, the `Duration` field is still subject to maximum hours per post limit.
 
 #### The `Volunteer Type` field can handle multiple keywords. 
 
