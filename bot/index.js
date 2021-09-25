@@ -60,7 +60,7 @@ client.once('ready', async () => {
         }
     
         await channel.send(WELCOME);
-        logger.error('Ready!');
+        logger.info('Ready!');
 
     } catch (e) {
         await channel.send(API_DOWN);
@@ -395,7 +395,7 @@ client.on('message', async (message) => {
 
         // Log all requests sent to bot console.
         if (config.debug)
-            logger.error(serverLog(post, response));
+            logger.info(serverLog(post, response));
 
         // Send confirmation receipt.
         await message.react("✅");
