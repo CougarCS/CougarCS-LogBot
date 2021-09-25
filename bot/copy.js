@@ -75,7 +75,7 @@ ${LR_TEMPLATE}
 - The \`Date\` field accepts the following formats: \`mm/dd/yyyy\`, \`mm/dd/yy\`, \`mm/dd\`
 - The \`Date\` field requires that a forward slash (\`/\`) separate days, months, and years.
 - The \`Volunteer Type\` field should not be omitted.
-- The \`Volunteer Type\` field should contain one of the following keywords: text, voice, group, outreach, other.
+- The \`Volunteer Type\` field should contain one of the following keywords: text, voice, in person, group, outreach, other.
 - The \`Duration\` field requires \`Xh Ym\` format. (X and Y are whole numbers representing hours and minutes respectively)
 - The \`Comment\` field is mandatory if the \`Volunteer Type\` field evaluates to "other".
 
