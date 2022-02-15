@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 module.exports = {
 	name: 'help',
 	description: 'list all of my commands or info about a specific command.',
@@ -30,8 +32,16 @@ module.exports = {
 
         data.push(`**Command Name:** ${command.name}`);
         if (command.description) data.push(`**Description:** ${command.description}`);
-        data.push(`**Usage:** \`${config.prefix}${command.name} ${command.usage ? command.usage : ''}\``);
-        data.push(`**Example:** \`${config.prefix}${command.name} ${command.example ? command.example : ''}\``);
+        if (_.isString(command.usage)) data.push(`**Usage:** \`${config.prefix}${command.name} ${command.usage ? command.usage : ''}\``);
+        else if (Array.isArray(command.usage)) 
+            for (let i = 0; i < command.usage.length; i++) 
+                data.push(`**Usage ${i + 1}:** \`${config.prefix}${command.name} ${command.usage[i] ? command.usage[i] : ''}\``);
+
+        if (_.isString(command.example)) data.push(`**Example:** \`${config.prefix}${command.name} ${command.example ? command.example : ''}\``);
+        else if (Array.isArray(command.example))
+            for (let i = 0; i < command.example.length; i++)
+                data.push(`**Example:** \`${config.prefix}${command.name} ${command.example[i] ? command.example[i] : ''}\``);
+
         data.push(`**Cooldown:** ${command.cooldown || config.cooldown} second(s)`);
         if (command.superuserOnly) data.push("*This command is for superusers only.*");
 
