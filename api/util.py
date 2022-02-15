@@ -52,7 +52,8 @@ def forward_error(func):
             return func(*args, **kwargs)
         except Exception:
             exc_type, exc_value, exc_tb = sys.exc_info()
-            traceback_string = "".join(traceback.format_exception(exc_type, exc_value, exc_tb))
+            traceback_string = "".join(
+                traceback.format_exception(exc_type, exc_value, exc_tb))
             print(traceback_string)
             return json_response({"server_error": traceback_string}), s.HTTP_500_INTERNAL_SERVER_ERROR
 
@@ -64,10 +65,11 @@ def _has_metadata():
     data = request.json
     if "metadata" not in data.keys():
         return encode({"message", "Permission denied."}), s.HTTP_401_UNAUTHORIZED
-    required_keys = ("discord_id", "username", "discriminator", "timestamp")
+    required_keys = {"discord_id", "username", "discriminator", "timestamp"}
     for key in required_keys:
         if key not in data["metadata"].keys():
             return encode({"message", "Permission denied."}), s.HTTP_401_UNAUTHORIZED
+
 
 def has_metadata(func):
     """ If user is unknown, refuse service. """
@@ -111,16 +113,17 @@ def freeze_if_frozen(func):
 
     return wrapper
 
+
 def create_new_user(data):
     """ Standardized User Object. """
     return {
-                "_id": data["metadata"]["discord_id"],
-                "username": data["metadata"]["username"],
-                "discriminator": data["metadata"]["discriminator"],
-                "cumulative_hours": 0,
-                "outreach_count": 0,
-                "superuser": False,
-                "last_updated": datetime.now(),
-                "frozen": False,
-                "last_used_name": ""
-            }
+        "_id": data["metadata"]["discord_id"],
+        "username": data["metadata"]["username"],
+        "discriminator": data["metadata"]["discriminator"],
+        "cumulative_hours": 0,
+        "outreach_count": 0,
+        "superuser": False,
+        "last_updated": datetime.now(),
+        "frozen": False,
+        "last_used_name": ""
+    }

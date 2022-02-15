@@ -1,7 +1,9 @@
 const { safeFetch, getDate, getUserIdFromMention, toOpenAPIDate } = require("../util");
 const { UNKNOWN_ISSUE, USER_NOT_FOUND } = require("../copy");
 const { s } = require('../httpStatusCodes');
+const createLogger = require('../../logger');
 
+const logger = createLogger(__filename);
 const userMentionRegex = /^<@!?(\d+)>$/
 const sinceRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[1|2]\d|3[0|1])(\/(19|20)?\d\d)?$/
 
@@ -9,7 +11,7 @@ module.exports = {
 	name: 'stats',
     description: 'lookup cumulative number of hours/outreach done.',
     args: false,
-    usage: ['', '<since?:mm/dd/yyyy>', '<user?:@mention>', '<user?:@mention> <since?:mm/dd/yyyy>', '<since?:mm/dd/yyyy> <user?:@mention>'],
+    usage: ['', '<since?: mm/dd/yyyy>', '<user?: @mention>', '<user?: @mention> <since?: mm/dd/yyyy>', '<since?: mm/dd/yyyy> <user?: @mention>'],
     example: ['', '04/14/2022', '@Username', '@Username 04/14/2022', '04/14/2022 @Username'],
     useApi: true,
 	execute: async (message, args, config, client) => {
@@ -25,9 +27,8 @@ module.exports = {
         const discordId = mention ? getUserIdFromMention(mention) : message.author.id;
         const since = date ? toOpenAPIDate(getDate(date)) : '2020-09-22';
 
-
         const payload = {
-            method: "POST",
+            method: "GET",
             body: "{}",
             headers: { 'Content-Type': 'application/json' }
         }

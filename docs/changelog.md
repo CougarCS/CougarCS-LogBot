@@ -3,6 +3,13 @@
 ## Version 1.1.3 - _Unreleased_
 
 -   The `help` command now handles multiple usages and examples.
+-   The `stats` command will retain all existing behavior.
+-   The `stats` command will now use log history has the single source of truth.
+-   The `stats` command will now accept an optional argument called `since`
+-   The `stats` command will now accept an optional argument called `user`.
+-   The `stats` command will accept arguments in any combination.
+-   The `since` argument of stats command is a date that will get stats <i>since</i> a specific date.
+-   The `user` argument will retrieve the the stats of the specified user.
 -   Insufficient args message now punts to the `help` command.
 
 ## Version 1.1.2 - 9/25/2021
@@ -48,7 +55,7 @@
 -   Completed last round of performance testing before launch.
 -   Launched production bot!
 
-## Version 1.0.4 Beta - 10/28/2020
+## Version 1.0.4 BETA - 10/28/2020
 
 -   Parsing algorithm updated to allow multiple internal validations.
 -   Parsing algorithm updated to allow a post-processing validation step.
@@ -67,7 +74,7 @@
 -   Removed `$setname` command from command docs, log docs, and best practices.
 -   Added the `$credits` command to the command docs and pro tips!
 
-## Version 1.0.3 Beta - 10/26/2020
+## Version 1.0.3 BETA - 10/26/2020
 
 -   Field names are now parsed in a case insensitive manner.
 -   Field names now have designated abbreviations.
@@ -82,7 +89,7 @@
 -   Fixed missing keyword definitions in help dm.
 -   Fixed issue preventing help dm from being sent.
 
-## Version 1.0.2 Beta - 10/24/2020
+## Version 1.0.2 BETA - 10/24/2020
 
 -   The $help command will now print an example of the usage when called with an argument.
 -   Added $setname command, that will allow users to modify how their name appears in log requests.
@@ -97,7 +104,7 @@
 -   Fixed $help command accidentally using embeds in replies.
 -   Fixed inconsistent wording across errors, tips, docs, and help dm.
 
-## Version 1.0.1 Beta - 10/22/2020
+## Version 1.0.1 BETA - 10/22/2020
 
 -   When a new user uses the $stats command, API now creates a user entry and reports zero contributions.
 -   The `Name` field is now optional for all but the very first log request a user makes.
