@@ -1,6 +1,9 @@
-const { safeFetch } = require("../util");
+const { safeFetch, getDate, getUserIdFromMention, toOpenAPIDate } = require("../util");
 const { UNKNOWN_ISSUE, USER_NOT_FOUND } = require("../copy");
 const { s } = require('../httpStatusCodes');
+
+const userMentionRegex = /^<@!?(\d+)>$/
+const sinceRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[1|2]\d|3[0|1])(\/(19|20)?\d\d)?$/
 
 module.exports = {
 	name: 'stats',
@@ -10,7 +13,18 @@ module.exports = {
     example: ['', '04/14/2022', '@Username', '@Username 04/14/2022', '04/14/2022 @Username'],
     useApi: true,
 	execute: async (message, args, config, client) => {
-        const discordId = message.author.id;
+        let mention, date;
+
+        for (let arg of args) {
+            if (userMentionRegex.test(arg))
+                mention = arg;
+            if (sinceRegex.test(arg))
+                date = arg;
+        }
+
+        const discordId = mention ? getUserIdFromMention(mention) : message.author.id;
+        const since = date ? toOpenAPIDate(getDate(date)) : '2020-09-22';
+
 
         const payload = {
             method: "POST",
@@ -18,7 +32,7 @@ module.exports = {
             headers: { 'Content-Type': 'application/json' }
         }
         
-        const [ respObj, response ] = await safeFetch(message, config, `/users/stats/${discordId}`, payload);
+        const [ respObj, response ] = await safeFetch(message, config, `/users/stats/${discordId}/${since}`, payload);
         if (!respObj && !response) return;
 
         if (respObj.status == s.HTTP_404_NOT_FOUND) {

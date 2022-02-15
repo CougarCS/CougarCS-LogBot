@@ -58,6 +58,20 @@ exports.truncateString = ( message, length ) => {
 exports.capitalStr = str => str.replace(/\b(\w)/gi, c => c.toUpperCase());
 
 
+exports.getUserIdFromMention = (mention) => {
+	if (!mention) return;
+
+	if (mention.startsWith('<@') && mention.endsWith('>')) {
+		mention = mention.slice(2, -1);
+
+		if (mention.startsWith('!')) {
+			mention = mention.slice(1);
+		}
+
+		return mention;
+	}
+}
+
 exports.safeFetch = async (message, config, url, payload, ...args) => {
     let respObj, response;
     try {
@@ -147,7 +161,8 @@ exports.safeFetch = async (message, config, url, payload, ...args) => {
     }
 };
 
-function stampPost(message, post) {
+
+exports.stampPost = (message, post) => {
     post.metadata = {
         "timestamp": new Date(),
         "discord_id": message.author.id,
@@ -157,4 +172,9 @@ function stampPost(message, post) {
     return post;
 }
 
-exports.stampPost = stampPost;
+exports.toOpenAPIDate = (dateObj) => {
+    if (!dateObj) return;
+    const offset = dateObj.getTimezoneOffset()
+    yourDate = new Date(dateObj.getTime() - (offset*60*1000))
+    return yourDate.toISOString().split('T')[0]
+}

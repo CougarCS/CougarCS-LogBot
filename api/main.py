@@ -216,10 +216,11 @@ def check_for_name(discord_id):
         return json_response(response_obj), s.HTTP_200_OK
         
 
-@app.route('/users/stats/<string:discord_id>', methods=['POST'])
+# @app.route('/users/stats/<string:discord_id>', methods=['POST'])
+@app.route('/users/stats/<string:discord_id>/<string:since_date>', methods=['POST'])
 @forward_error
 @has_metadata
-def get_user_stats(discord_id):
+def get_user_stats(discord_id, since_date):
     """ Retrieve user's stat totals. """
     user_col = mongo.db.users
     response_obj = {}
