@@ -6,8 +6,8 @@ module.exports = {
 	name: 'stats',
     description: 'lookup cumulative number of hours/outreach done.',
     args: false,
-    usage: '',
-    example: '',
+    usage: ['', '<since?:mm/dd/yyyy>', '<user?:@mention>', '<user?:@mention> <since?:mm/dd/yyyy>', '<since?:mm/dd/yyyy> <user?:@mention>'],
+    example: ['', '04/14/2022', '@Username', '@Username 04/14/2022', '04/14/2022 @Username'],
     useApi: true,
 	execute: async (message, args, config, client) => {
         const discordId = message.author.id;
