@@ -32,6 +32,7 @@ module.exports = {
 
         data.push(`**Command Name:** ${command.name}`);
         if (command.description) data.push(`**Description:** ${command.description}`);
+        
         if (_.isString(command.usage)) data.push(`**Usage:** \`${config.prefix}${command.name} ${command.usage ? command.usage : ''}\``);
         else if (Array.isArray(command.usage)) 
             for (let i = 0; i < command.usage.length; i++) 
