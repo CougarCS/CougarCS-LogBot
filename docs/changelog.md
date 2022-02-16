@@ -2,6 +2,7 @@
 
 ## Version 1.1.3 - _Unreleased_
 
+-   The `Duration` field can be abbreviated using the character `d`.
 -   The `$stats` command will now use log history has the single source of truth.
 -   The `$stats` command will now accept an optional argument called `since`
 -   The `$stats` command will now accept an optional argument called `user`.

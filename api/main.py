@@ -250,7 +250,7 @@ def get_user_stats_v1(discord_id):
         return json_response(response_obj), s.HTTP_200_OK
 
 
-@app.route('/users/stats/<string:discord_id>/<string:since_date>', methods=['GET'])
+@app.route('/users/stats/<string:discord_id>/<string:since_date>', methods=['POST'])
 @forward_error
 @has_metadata
 def get_user_stats_v2(discord_id, since_date):
@@ -260,15 +260,16 @@ def get_user_stats_v2(discord_id, since_date):
     response_obj = {}
     data = request.json
 
-    # Requesting a different users data requires superuser privileges.
-    requesting_id = data["metadata"]["discord_id"]
-    if discord_id != requesting_id:
-        existing_user_query = {"_id": {"$eq": requesting_id}}
-        existing_user = user_col.find_one(existing_user_query)
-        if not existing_user or not existing_user["superuser"]:
-            return encode({"message": "Permission denied."}), s.HTTP_401_UNAUTHORIZED
+    if request.method == "POST":
 
-    if request.method == "GET":
+        # Requesting a different users data requires superuser privileges.
+        requesting_id = data["metadata"]["discord_id"]
+        if discord_id != requesting_id:
+            existing_user_query = {"_id": {"$eq": requesting_id}}
+            existing_user = user_col.find_one(existing_user_query)
+            if not existing_user or not existing_user["superuser"]:
+                return encode({"message": "Permission denied."}), s.HTTP_401_UNAUTHORIZED
+
         pipeline = [
             {
                 "$match": {

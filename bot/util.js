@@ -162,7 +162,8 @@ exports.safeFetch = async (message, config, url, payload, ...args) => {
 };
 
 
-exports.stampPost = (message, post) => {
+
+const stampPost = (message, post) => {
     post.metadata = {
         "timestamp": new Date(),
         "discord_id": message.author.id,
@@ -172,9 +173,18 @@ exports.stampPost = (message, post) => {
     return post;
 }
 
+exports.stampPost = stampPost;
+
 exports.toOpenAPIDate = (dateObj) => {
     if (!dateObj) return;
     const offset = dateObj.getTimezoneOffset()
     yourDate = new Date(dateObj.getTime() - (offset*60*1000))
     return yourDate.toISOString().split('T')[0]
 }
+
+exports.openAPIToDateObj = (openApiDate) => {
+    if (!openApiDate) return;
+    const [year, monthString, day] = openApiDate.split('-');
+    const month = parseInt(monthString) - 1;
+    return new Date(year, month, day);
+};

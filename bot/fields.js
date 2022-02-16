@@ -116,7 +116,7 @@ const fields = [
         valid: true,
     },
     {
-        labels: ["duration", "dr"],
+        labels: ["duration", "dr", "d"],
         prepare(value, label) {
             let newValue = extract(label, value).trim().toLowerCase();
             newValue = newValue.replace(otherMinsRegex, "m");

@@ -1,11 +1,12 @@
-const { safeFetch, getDate, getUserIdFromMention, toOpenAPIDate } = require("../util");
+const { safeFetch, getDate, getUserIdFromMention, toOpenAPIDate, openAPIToDateObj } = require("../util");
 const { UNKNOWN_ISSUE, USER_NOT_FOUND } = require("../copy");
 const { s } = require('../httpStatusCodes');
 const createLogger = require('../../logger');
 
 const logger = createLogger(__filename);
-const userMentionRegex = /^<@!?(\d+)>$/
-const sinceRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[1|2]\d|3[0|1])(\/(19|20)?\d\d)?$/
+const userMentionRegex = /^<@!?(\d+)>$/;
+const sinceRegex = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[1|2]\d|3[0|1])(\/(19|20)?\d\d)?$/;
+const defaultDate = '2020-09-22';
 
 module.exports = {
 	name: 'stats',
@@ -25,14 +26,14 @@ module.exports = {
         }
 
         const discordId = mention ? getUserIdFromMention(mention) : message.author.id;
-        const dateObject = getDate(dateInput);
-        const since = dateInput ? toOpenAPIDate(dateObject) : '2020-09-22';
+        const dateObject = dateInput ? getDate(dateInput) : openAPIToDateObj(defaultDate);
+        const since = dateObject ? toOpenAPIDate(dateObject) : '2020-09-22';
 
         logger.info(`Mention: ${mention}`);
         logger.info(`Date Input: ${dateInput}`);
 
         const payload = {
-            method: "GET",
+            method: "POST",
             body: "{}",
             headers: { 'Content-Type': 'application/json' }
         }
@@ -49,10 +50,14 @@ module.exports = {
         if (respObj.status == s.HTTP_200_OK) {
             let [ totalHours, outreachCount ] = response.body;
             totalHours = Number(Number(totalHours).toFixed(2));
-            const resultMessage = `volunteered atotal of **${totalHours} hours** and participated in outreach **${outreachCount} ${outreachCount === 1 ? "time" : "times"}**.`;
+
+            logger.info(`Total Hours: ${totalHours}`);
+            logger.info(`Outreach Count: ${outreachCount}`);
+
+            const resultMessage = `volunteered a total of **${totalHours} hours** and participated in outreach **${outreachCount} ${outreachCount === 1 ? "time" : "times"}**.`;
 
             if (mention) {
-                const user = client.users.cache.get(mention);
+                const user = await client.users.cache.get(discordId);
                 const content = `Since ${dateObject.toLocaleDateString()}, the user ${user.username}#${user.discriminator} has ${resultMessage}`;
                 await message.author.send(content);
 
