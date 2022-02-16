@@ -6,7 +6,6 @@ To call any particular command, you need to begin with the prefix. By default, t
 
 ✅
 
-
 ## The `help` command.
 
 When calling the `help` command without arguments, it will print an up-to-date list of commands.
@@ -32,7 +31,6 @@ If you ask the `help` command to print the details of a command that doesn't exi
 > $help foobar
 
 ⚠️
-
 
 ## The `stats` command.
 
@@ -76,19 +74,19 @@ The argument must be a confirmation number (check your confirmation receipt).
 
 ⚠️
 
-You can use the `cancel` command to cancel your log request. 
+You can use the `cancel` command to cancel your log request.
 
 > $cancel 5f7a257cbfc4ed66e5c321e4
 
 ✅
 
-The `cancel` command will *only* work on *your* log request. For example, the confirmation number used here belongs to someone else.
+The `cancel` command will _only_ work on _your_ log request. For example, the confirmation number used here belongs to someone else.
 
 > $cancel 5f78de2cbfc4ed66e5c321e2
 
 ⚠️
 
-If you're a superuser, you can cancel *anyone's* request. Here's the same example, except now you're a superuser.
+If you're a superuser, you can cancel _anyone's_ request. Here's the same example, except now you're a superuser.
 
 > $cancel 5f78de2cbfc4ed66e5c321e2
 
@@ -130,7 +128,7 @@ The `credits` command will send a DM with a list of all contributors who assiste
 
 ✅
 
-The `credits` command is *not* affected by `lock` and `unlock` commands.
+The `credits` command is _not_ affected by `lock` and `unlock` commands.
 
 > $lock
 
@@ -154,7 +152,7 @@ The `version` command will print the current version of the bot.
 
 ✅
 
-The `version` command is *not* affected by `lock` and `unlock` commands.
+The `version` command is _not_ affected by `lock` and `unlock` commands.
 
 > $lock
 
@@ -178,7 +176,7 @@ The `config` command will print out a list of the bot's current configuration se
 
 ✅
 
-The `config` command is *not* affected by `lock` and `unlock` commands.
+The `config` command is _not_ affected by `lock` and `unlock` commands.
 
 > $lock
 
@@ -190,7 +188,6 @@ The `config` command is *not* affected by `lock` and `unlock` commands.
 
 ## The `?` command.
 
-
 The `?` command is special, since it stands alone without prefix and without arguments.
 
 > ?
@@ -201,7 +198,7 @@ The `?` command is special, since it stands alone without prefix and without arg
 
 ⚠️
 
-> ? foo 123 
+> ? foo 123
 
 ⚠️
 
@@ -233,7 +230,7 @@ Whatever you do, don't call the `ping` command!
 
 **The `tiprate` command is for superusers.**
 
-If you are *not* a superuser:
+If you are _not_ a superuser:
 
 > $tiprate 0.15
 
@@ -291,7 +288,7 @@ The `tiprate` command does not work if the `lock` command has been called.
 
 **The `maxhours` command is for superusers.**
 
-If you are *not* a superuser:
+If you are _not_ a superuser:
 
 > $maxhours 12
 
@@ -387,7 +384,7 @@ The `maxhours` command does not work if the `lock` command has been called.
 
 **The `maxoutreach` command is for superusers.**
 
-If you are *not* a superuser:
+If you are _not_ a superuser:
 
 > $maxoutreach 6
 
@@ -483,7 +480,7 @@ The `maxoutreach` command does not work if the `lock` command has been called.
 
 **The `mininpersonhours` command is for superusers.**
 
-If you are *not* a superuser:
+If you are _not_ a superuser:
 
 > $mininpersonhours 12
 
@@ -564,6 +561,7 @@ Duration: 3h
 Comment: Helped someone with linked lists.
 
 ✅
+```
 
 The `mininpersonhours` command does not work if the `lock` command has been called.
 
@@ -579,7 +577,7 @@ The `mininpersonhours` command does not work if the `lock` command has been call
 
 **The `cooldown` command is for superusers.**
 
-If you are *not* a superuser:
+If you are _not_ a superuser:
 
 > $cooldown 3
 
@@ -719,7 +717,7 @@ The `cooldown` command does not work if the `lock` command has been called.
 
 **The `debug` command is for superusers.**
 
-If you are *not* a superuser:
+If you are _not_ a superuser:
 
 > $debug
 
@@ -739,7 +737,7 @@ The `debug` command ignores all arguments.
 
 NOTE: When debug mode is active, the internal workings of the bot and API will be exposed to the chat.
 
-NOTE: You can use debug mode to troubleshoot both bot *and* API issues.
+NOTE: You can use debug mode to troubleshoot both bot _and_ API issues.
 
 **The `debug` command toggles the debug state between active and inactive.**
 
@@ -769,7 +767,7 @@ The `debug` command does not work if the `lock` command has been called.
 
 **The `lock` and `unlock` commands are for superusers.**
 
-If you are *not* a superuser:
+If you are _not_ a superuser:
 
 > $lock
 
@@ -799,7 +797,7 @@ The `lock` and `unlock` commands ignore all arguments.
 
 ✅
 
-The `lock` command prevents *most* bot interactions with the API.
+The `lock` command prevents _most_ bot interactions with the API.
 
 > $lock
 
@@ -819,7 +817,7 @@ Comment: Helped someone with linked lists.
 ⚠️
 ```
 
-The `unlock` command will allow *all* bot interactions with the API.
+The `unlock` command will allow _all_ bot interactions with the API.
 
 > $unlock
 
@@ -860,4 +858,3 @@ Once unlocked, the bot cannot be unlocked again.
 ⚠️
 
 NOTE: You can use the `lock` and `unlock` commands to troubleshoot API issues in production.
-
