@@ -124,7 +124,7 @@ client.on('message', async (message) => {
 
                 // Required argument verification.
                 if (command.args && !args.length) {
-                    let reply = `*You didn't provide any arguments.*  Try running \`${config.prefix}help ${command.name}\` for some helpful info.`
+                    let reply = `*You didn't provide any arguments...*   Run \`${config.prefix}help ${command.name}\` for more information.`
                     await message.react('⚠️');
                     await message.reply(reply);
                     return;

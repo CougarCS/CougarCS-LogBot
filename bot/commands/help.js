@@ -40,7 +40,7 @@ module.exports = {
         if (_.isString(command.example)) data.push(`**Example:** \`${config.prefix}${command.name} ${command.example ? command.example : ''}\``);
         else if (Array.isArray(command.example))
             for (let i = 0; i < command.example.length; i++)
-                data.push(`**Example:** \`${config.prefix}${command.name} ${command.example[i] ? command.example[i] : ''}\``);
+                data.push(`**Example ${i + 1}:** \`${config.prefix}${command.name} ${command.example[i] ? command.example[i] : ''}\``);
 
         data.push(`**Cooldown:** ${command.cooldown || config.cooldown} second(s)`);
         if (command.superuserOnly) data.push("*This command is for superusers only.*");
