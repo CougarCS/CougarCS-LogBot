@@ -285,13 +285,15 @@ def get_user_stats_v2(discord_id, since_date):
                         "$sum": "$duration"
                     },
                     "outreach_count": {
-                        "$sum": "$outreach_count"
+                        "$sum": "$outreach count"
                     }
                 }
             }
         ]
-        result = log_col.aggregate(pipeline)
-        pprint(result)
+
+        result = list(log_col.aggregate(pipeline))
+        response_obj["body"] = [
+            result[0]["duration"], result[0]["outreach_count"]]
         return json_response(response_obj), s.HTTP_200_OK
 
 
