@@ -12,6 +12,7 @@
 -   The `since` argument of the `stats` command is a date that will get stats <i>since</i> a specific date.
 -   The `user` argument of the `stats` command will retrieve the the stats of the specified user.
 -   Insufficient args message now punts to the `help` command.
+-   Documentation links now point to CougarCS repository.
 
 ## Version 1.1.2 - 9/25/2021
 
