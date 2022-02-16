@@ -15,7 +15,7 @@ module.exports = {
     example: ['', '04/14/2022', '@Username', '@Username 04/14/2022', '04/14/2022 @Username'],
     useApi: true,
 	execute: async (message, args, config, client) => {
-        let mention, date;
+        let mention, dateInput;
 
         for (let arg of args) {
             if (userMentionRegex.test(arg))
@@ -27,6 +27,9 @@ module.exports = {
         const discordId = mention ? getUserIdFromMention(mention) : message.author.id;
         const dateObject = getDate(dateInput);
         const since = dateInput ? toOpenAPIDate(dateObject) : '2020-09-22';
+
+        logger.info(`Mention: ${mention}`);
+        logger.info(`Date Input: ${dateInput}`);
 
         const payload = {
             method: "GET",
