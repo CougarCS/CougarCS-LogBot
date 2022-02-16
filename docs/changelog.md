@@ -2,16 +2,17 @@
 
 ## Version 1.1.3 - _Unreleased_
 
--   The `help` command now handles multiple usages and examples.
--   The `stats` command will retain all existing behavior.
 -   The `stats` command will now use log history has the single source of truth.
 -   The `stats` command will now accept an optional argument called `since`
 -   The `stats` command will now accept an optional argument called `user`.
 -   The `stats` command will accept arguments in any combination.
--   The `duration` field now accepts the following postfixes: h, hr, hrs, hour, hours, m, min, mins, minute, minutes
+-   The `stats` command will retain all existing behavior.
 -   The `since` argument of the `stats` command is a date that will get stats <i>since</i> a specific date.
 -   The `user` argument of the `stats` command will retrieve the the stats of the specified user.
--   Insufficient args message now punts to the `help` command.
+-   The `user` argument of the `stats` command will require superuser privileges.
+-   The `help` command now handles multiple usages and examples.
+-   Insufficient args message now defers to the `help` command.
+-   Improved security in the API layer.
 -   Documentation links now point to CougarCS repository.
 
 ## Version 1.1.2 - 9/25/2021
@@ -23,6 +24,7 @@
 -   The `Duration` field will be set to `minInPersonHours` if it is omitted and volunteer type is `in person`.
 -   The `Duration` field will be set to `minInPersonHours` if it is less than `minInPersonHours` and volunteer type is `in person`.
 -   The `Duration` field will be unaffected if it is more than `minInPersonHours` and volunteer type is `in person`.
+-   The `Duration` field now accepts the following postfixes: h, hr, hrs, hour, hours, m, min, mins, minute, minutes
 -   Removed unnecessary functionality.
 
 ## Version 1.1.0 - 12/13/2020
