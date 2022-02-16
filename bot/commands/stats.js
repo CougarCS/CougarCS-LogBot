@@ -21,11 +21,12 @@ module.exports = {
             if (userMentionRegex.test(arg))
                 mention = arg;
             if (sinceRegex.test(arg))
-                date = arg;
+                dateInput = arg;
         }
 
         const discordId = mention ? getUserIdFromMention(mention) : message.author.id;
-        const since = date ? toOpenAPIDate(getDate(date)) : '2020-09-22';
+        const dateObject = getDate(dateInput);
+        const since = dateInput ? toOpenAPIDate(dateObject) : '2020-09-22';
 
         const payload = {
             method: "GET",
@@ -45,8 +46,18 @@ module.exports = {
         if (respObj.status == s.HTTP_200_OK) {
             let [ totalHours, outreachCount ] = response.body;
             totalHours = Number(Number(totalHours).toFixed(2));
-            const content = `To date, you have volunteered a total of **${totalHours} hours** and participated in outreach **${outreachCount} ${outreachCount === 1 ? "time" : "times"}**. ${outreachCount || totalHours ? "Thank you!" : ""}`;
-            await message.reply(content);
+            const resultMessage = `volunteered atotal of **${totalHours} hours** and participated in outreach **${outreachCount} ${outreachCount === 1 ? "time" : "times"}**.`;
+
+            if (mention) {
+                const user = client.users.cache.get(mention);
+                const content = `Since ${dateObject.toLocaleDateString()}, the user ${user.username}#${user.discriminator} has ${resultMessage}`;
+                await message.author.send(content);
+
+            } else {
+                const content = `Since ${dateObject.toLocaleDateString()}, you have ${resultMessage}${outreachCount || totalHours ? " Thank you!" : ""}`;
+                await message.reply(content);
+            }
+            
             await message.react("✅");
             return;
         }
