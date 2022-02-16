@@ -66,8 +66,12 @@ def _has_metadata():
     if "metadata" not in data.keys():
         return encode({"message", "Permission denied."}), s.HTTP_401_UNAUTHORIZED
     required_keys = {"discord_id", "username", "discriminator", "timestamp"}
+    existing_keys = set(data["metadata"].keys())
     for key in required_keys:
-        if key not in data["metadata"].keys():
+        if key not in existing_keys:
+            return encode({"message", "Permission denied."}), s.HTTP_401_UNAUTHORIZED
+    for key in existing_keys:
+        if key not in required_keys:
             return encode({"message", "Permission denied."}), s.HTTP_401_UNAUTHORIZED
 
 
