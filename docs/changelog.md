@@ -2,16 +2,16 @@
 
 ## Version 1.1.3 - _Unreleased_
 
--   The `stats` command will now use log history has the single source of truth.
--   The `stats` command will now accept an optional argument called `since`
--   The `stats` command will now accept an optional argument called `user`.
--   The `stats` command will accept arguments in any combination.
--   The `stats` command will retain all existing behavior.
--   The `since` argument of the `stats` command is a date that will get stats <i>since</i> a specific date.
--   The `user` argument of the `stats` command will retrieve the the stats of the specified user.
--   The `user` argument of the `stats` command will require superuser privileges.
--   The `help` command now handles multiple usages and examples.
--   Insufficient args message now defers to the `help` command.
+-   The `$stats` command will now use log history has the single source of truth.
+-   The `$stats` command will now accept an optional argument called `since`
+-   The `$stats` command will now accept an optional argument called `user`.
+-   The `$stats` command will accept arguments in any combination.
+-   The `$stats` command will retain all existing behavior.
+-   The `since` argument of the `$stats` command is a date that will get stats <i>since</i> a specific date.
+-   The `user` argument of the `$stats` command will retrieve the the stats of the specified user.
+-   The `user` argument of the `$stats` command will require superuser privileges.
+-   The `$help` command now handles multiple usages and examples.
+-   Insufficient args message now defers to the `$help` command.
 -   Improved security in the API layer.
 -   Documentation links now point to CougarCS repository.
 
