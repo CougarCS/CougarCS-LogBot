@@ -9,6 +9,7 @@
 -   The `$stats` command will accept arguments in any combination.
 -   The `$stats` command will retain all existing behavior.
 -   The `since` argument of the `$stats` command is a date that will get stats <i>since</i> a specific date.
+-   The `since` argument of the `$stats` command is a date that must be prior to today's date.
 -   The `user` argument of the `$stats` command will retrieve the the stats of the specified user.
 -   The `user` argument of the `$stats` command will always send results to DM, even when mentioning yourself.
 -   The `user` argument of the `$stats` command will require superuser privileges.
