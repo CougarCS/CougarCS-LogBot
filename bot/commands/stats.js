@@ -28,9 +28,17 @@ module.exports = {
         const discordId = mention ? getUserIdFromMention(mention) : message.author.id;
         const dateObject = dateInput ? getDate(dateInput) : openAPIToDateObj(defaultDate);
         const since = dateObject ? toOpenAPIDate(dateObject) : '2020-09-22';
+        const today = new Date(new Date().toLocaleDateString());
+        
 
         logger.info(`Mention: ${mention}`);
         logger.info(`Date Input: ${dateInput}`);
+        if (dateObject >= today) {
+            logger.info("dateObject >= today");
+            await message.react("⚠️");
+            await message.reply("The date must be prior to today.");
+            return;
+        }
 
         const payload = {
             method: "POST",

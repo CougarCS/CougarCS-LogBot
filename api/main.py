@@ -5,9 +5,17 @@ from flask import Blueprint, request, current_app
 from flask_api import status as s
 from bson import ObjectId
 from .extensions import mongo
-from .util import json_response, forward_error, encode, superuser_only, has_metadata, _has_metadata, create_new_user
+from .util import (
+    json_response,
+    forward_error,
+    encode,
+    superuser_only,
+    has_metadata,
+    _has_metadata,
+    create_new_user,
+)
 
-app = Blueprint('main', __name__)
+app = Blueprint("main", __name__)
 
 
 # @app.route('/seed', methods=['POST', 'GET'])
@@ -40,13 +48,13 @@ app = Blueprint('main', __name__)
 #     return json_response(response_obj), s.HTTP_200_OK
 
 
-@app.route('/logs', methods=['POST'])
+@app.route("/logs", methods=["POST"])
 @forward_error
 @has_metadata
 def log_request():
-    """ Post a log request to the database. """
+    """Post a log request to the database."""
     response_obj = {}
-    if request.method == 'POST':
+    if request.method == "POST":
 
         # Access collections.
         log_col = mongo.db.logs
@@ -83,17 +91,23 @@ def log_request():
         # If user exists, update him/her.
         if existing_user:
             if existing_user["frozen"] == True and existing_user["superuser"] == False:
-                return encode({"message": "Permission denied."}), s.HTTP_401_UNAUTHORIZED
+                return (
+                    encode({"message": "Permission denied."}),
+                    s.HTTP_401_UNAUTHORIZED,
+                )
             updated_values = {
                 "username": data["metadata"]["username"],
                 "discriminator": data["metadata"]["discriminator"],
-                "cumulative_hours": round(existing_user["cumulative_hours"] + duration_increment, 2),
-                "outreach_count": int(round(existing_user["outreach_count"] + outreach_increment, 0)),
+                "cumulative_hours": round(
+                    existing_user["cumulative_hours"] + duration_increment, 2
+                ),
+                "outreach_count": int(
+                    round(existing_user["outreach_count"] + outreach_increment, 0)
+                ),
                 "last_updated": datetime.utcnow(),
-                "last_used_name": data["name"]
+                "last_used_name": data["name"],
             }
-            up_res = user_col.update_one(
-                existing_user_query, {"$set": updated_values})
+            up_res = user_col.update_one(existing_user_query, {"$set": updated_values})
             if up_res.modified_count == 1:
                 response_obj["updated_user"] = up_res.acknowledged
                 response_obj["user_id"] = discord_id
@@ -111,22 +125,22 @@ def log_request():
     return json_response(response_obj), s.HTTP_200_OK
 
 
-@app.route('/config', methods=['UPDATE'])
+@app.route("/config", methods=["UPDATE"])
 @forward_error
 @has_metadata
 @superuser_only
 def configuration():
-    """ Update log bot configuration. """
+    """Update log bot configuration."""
     config_col = mongo.db.config
     response_obj = {}
 
     if request.method == "UPDATE":
         # Get and clean new config data.
         updated_config = request.json
-        del updated_config['metadata']
+        del updated_config["metadata"]
 
         # Retrieve database config ID.
-        config_id = ObjectId(current_app.config['CONFIG_ID'])
+        config_id = ObjectId(current_app.config["CONFIG_ID"])
         config_query = {"_id": {"$eq": config_id}}
 
         # Update database config info.
@@ -141,33 +155,33 @@ def configuration():
         return json_response(response_obj), s.HTTP_417_EXPECTATION_FAILED
 
 
-@app.route('/config', methods=['GET'])
+@app.route("/config", methods=["GET"])
 @forward_error
 def initialize():
-    """ Retrieve existing log bot configuration. """
+    """Retrieve existing log bot configuration."""
     config_col = mongo.db.config
     response_obj = {}
 
     if request.method == "GET":
 
         # Get and existing config.
-        config_id = ObjectId(current_app.config['CONFIG_ID'])
+        config_id = ObjectId(current_app.config["CONFIG_ID"])
         config_query = {"_id": {"$eq": config_id}}
         config = config_col.find_one(config_query)
 
         # Remove sensitive data.
-        del config['_id']
+        del config["_id"]
 
         # Send config.
-        response_obj['body'] = config
-        response_obj['message'] = 'config retrieved'
+        response_obj["body"] = config
+        response_obj["message"] = "config retrieved"
         return json_response(response_obj), s.HTTP_200_OK
 
 
-@app.route('/users/name/<string:discord_id>', methods=['GET', 'UPDATE'])
+@app.route("/users/name/<string:discord_id>", methods=["GET", "UPDATE"])
 @forward_error
 def check_for_name(discord_id):
-    """ Retrieve and update user's last used name field value. """
+    """Retrieve and update user's last used name field value."""
     user_col = mongo.db.users
     response_obj = {}
 
@@ -206,11 +220,10 @@ def check_for_name(discord_id):
             "username": data["metadata"]["username"],
             "discriminator": data["metadata"]["discriminator"],
             "last_updated": datetime.utcnow(),
-            "last_used_name": data["new_name"]
+            "last_used_name": data["new_name"],
         }
 
-        up_res = user_col.update_one(
-            existing_user_query, {"$set": updated_values})
+        up_res = user_col.update_one(existing_user_query, {"$set": updated_values})
         if up_res.modified_count == 1:
             response_obj["updated_user"] = up_res.acknowledged
             response_obj["user_id"] = discord_id
@@ -219,11 +232,11 @@ def check_for_name(discord_id):
         return json_response(response_obj), s.HTTP_200_OK
 
 
-@app.route('/users/stats/<string:discord_id>', methods=['POST'])
+@app.route("/users/stats/<string:discord_id>", methods=["POST"])
 @forward_error
 @has_metadata
 def get_user_stats_v1(discord_id):
-    """ Retrieve user's stat totals. """
+    """Retrieve user's stat totals."""
     user_col = mongo.db.users
     response_obj = {}
 
@@ -244,17 +257,17 @@ def get_user_stats_v1(discord_id):
 
         response_obj["body"] = [
             existing_user["cumulative_hours"],
-            existing_user["outreach_count"]
+            existing_user["outreach_count"],
         ]
 
         return json_response(response_obj), s.HTTP_200_OK
 
 
-@app.route('/users/stats/<string:discord_id>/<string:since_date>', methods=['POST'])
+@app.route("/users/stats/<string:discord_id>/<string:since_date>", methods=["POST"])
 @forward_error
 @has_metadata
 def get_user_stats_v2(discord_id, since_date):
-    """ Retrieve user's stat totals. """
+    """Retrieve user's stat totals."""
     user_col = mongo.db.users
     log_col = mongo.db.logs
     response_obj = {}
@@ -268,40 +281,38 @@ def get_user_stats_v2(discord_id, since_date):
             existing_user_query = {"_id": {"$eq": requesting_id}}
             existing_user = user_col.find_one(existing_user_query)
             if not existing_user or not existing_user["superuser"]:
-                return encode({"message": "Permission denied."}), s.HTTP_401_UNAUTHORIZED
+                return (
+                    json_response({"message": "Permission denied."}),
+                    s.HTTP_401_UNAUTHORIZED,
+                )
 
         pipeline = [
             {
                 "$match": {
                     "discord_id": discord_id,
-                    "date": {
-                        "$gte": datetime.strptime(since_date, r"%Y-%m-%d")
-                    }
+                    "date": {"$gte": datetime.strptime(since_date, r"%Y-%m-%d")},
                 }
             },
             {
                 "$group": {
                     "_id": None,
-                    "duration": {
-                        "$sum": "$duration"
-                    },
-                    "outreach_count": {
-                        "$sum": "$outreach count"
-                    }
+                    "duration": {"$sum": "$duration"},
+                    "outreach_count": {"$sum": "$outreach count"},
                 }
-            }
+            },
         ]
 
         result = list(log_col.aggregate(pipeline))
-        response_obj["body"] = [
-            result[0]["duration"], result[0]["outreach_count"]]
+        if len(result) == 0:
+            result.append({"duration": 0, "outreach_count": 0})
+        response_obj["body"] = [result[0]["duration"], result[0]["outreach_count"]]
         return json_response(response_obj), s.HTTP_200_OK
 
 
-@app.route('/logs/<string:discord_id>/<string:conf_num>', methods=['DELETE'])
+@app.route("/logs/<string:discord_id>/<string:conf_num>", methods=["DELETE"])
 @forward_error
 def delete_log(discord_id, conf_num):
-    """ Delete log request from the database. """
+    """Delete log request from the database."""
     log_col = mongo.db.logs
     user_col = mongo.db.users
     response_obj = {}
@@ -317,7 +328,10 @@ def delete_log(discord_id, conf_num):
         # Prevent frozen users from altering database.
         if not existing_user["superuser"]:
             if existing_user["frozen"]:
-                return json_response({"message": "Permission Denied"}), s.HTTP_401_UNAUTHORIZED
+                return (
+                    json_response({"message": "Permission Denied"}),
+                    s.HTTP_401_UNAUTHORIZED,
+                )
 
         existing_log_query = {"_id": {"$eq": ObjectId(conf_num)}}
         existing_log = log_col.find_one(existing_log_query)
@@ -328,11 +342,18 @@ def delete_log(discord_id, conf_num):
         # Prevent a user who does not own this log from deleting it.
         if not existing_user["superuser"]:
             if existing_log["discord_id"] != existing_user["_id"]:
-                return json_response({"message": "Permission Denied"}), s.HTTP_401_UNAUTHORIZED
+                return (
+                    json_response({"message": "Permission Denied"}),
+                    s.HTTP_401_UNAUTHORIZED,
+                )
 
         # Prime user object to update stats.
-        existing_user["cumulative_hours"] -= 0 if existing_log["duration"] is None else existing_log["duration"]
-        existing_user["outreach_count"] -= 1 if existing_log["volunteer type"] == "outreach" else 0
+        existing_user["cumulative_hours"] -= (
+            0 if existing_log["duration"] is None else existing_log["duration"]
+        )
+        existing_user["outreach_count"] -= (
+            1 if existing_log["volunteer type"] == "outreach" else 0
+        )
 
         # Delete log.
         result = log_col.delete_one(existing_log_query)
@@ -342,8 +363,7 @@ def delete_log(discord_id, conf_num):
             response_obj["message"] = "log was deleted"
 
             # Update user stats.
-            up_res = user_col.update_one(
-                existing_user_query, {"$set": existing_user})
+            up_res = user_col.update_one(existing_user_query, {"$set": existing_user})
             if up_res.modified_count == 1:
                 response_obj["updated_user"] = True
                 response_obj["user_id"] = existing_log["discord_id"]
