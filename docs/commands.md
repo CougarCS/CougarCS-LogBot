@@ -62,7 +62,28 @@ The `stats` command takes two **optional** arguments, `user` and `since`.
 
 ✅
 
-**The `stats` command has a  `user` argument which can only be used by super users.**
+**The `stats` command has an optional `since` argument.**
+
+The `stats` command will output statistics since it's birthday (9/22/2020) by default. 
+
+> $stats
+
+✅
+
+The `stats` command will output statistics since another given date, if provided. 
+
+> $stats 1/1/2022
+
+✅
+
+The `stats` command will only output statistics when given date is *prior* to today. 
+
+> $stats 12/30/3000
+
+⚠️
+
+
+**The `stats` command has an optional `user` argument which can only be used by super users.**
 
 If you are _not_ a superuser:
 
