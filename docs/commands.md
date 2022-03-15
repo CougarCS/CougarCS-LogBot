@@ -40,13 +40,48 @@ The `stats` command will print your hours and outreach count since the launch of
 
 ✅
 
-The `stats` command will ignore all arguments.
+The `stats` command takes two **optional** arguments, `user` and `since`.
 
-> $stats 123
+> $stats
 
 ✅
 
-> $stats abc
+> $stats @Username
+
+✅
+
+> $stats 1/1/2022
+
+✅
+
+> $stats @Username 1/1/2022
+
+✅
+
+> $stats 1/1/2022 @Username
+
+✅
+
+**The `stats` command has a  `user` argument which can only be used by super users.**
+
+If you are _not_ a superuser:
+
+> $stats @Username
+
+⚠️
+
+If you are a superuser:
+
+> $stats @Username
+
+✅
+
+The `stats` command has a `user` argument that will send a direct message containing that user's statistics to the caller of the command.
+
+If more than one user is specified, the *last* user mentioned is taken as the argument. In this example, only stats for the second user are sent.
+
+
+> $stats @Username1 @Username2
 
 ✅
 

@@ -17,6 +17,9 @@
 -   Insufficient args message now defers to the `$help` command.
 -   Improved security in the API layer.
 -   Documentation links now point to CougarCS repository.
+-   Documentation has been updated to reflect new functionality.
+-   Several protips have been updated. And a few new protips have been added.
+-   Database has been indexed by discord ID to improve processing time.
 
 ## Version 1.1.2 - 9/25/2021
 
