@@ -97,7 +97,7 @@ If you are a superuser:
 
 ✅
 
-The `stats` command has a `user` argument that will send a direct message containing that user's statistics to the caller of the command.
+The `stats` command has a `user` argument that will send a **direct message** containing that user's statistics to the caller of the command.
 
 If more than one user is specified, the *last* user mentioned is taken as the argument. In this example, only stats for the second user are sent.
 
