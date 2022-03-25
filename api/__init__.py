@@ -1,3 +1,7 @@
+import os
+
+print(os.getpid())  # DO NOT DELETE!
+
 from flask import Flask
 from .extensions import mongo
 from .main import app as _app

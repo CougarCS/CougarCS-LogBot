@@ -3,7 +3,7 @@ const { _ } = require('lodash');
 
 const otherMinsRegex = /minutes?|mins?/i;
 const otherHoursRegex = /hours?|hrs?/i;
-const manySpacesRegex = / +/gi;
+const manySpacesRegex = /[ -]+/gi;
 const mhSpaceRegex = /\s+(?=m|h)/gi;
 
 const fields = [
@@ -61,7 +61,9 @@ const fields = [
     {
         labels: ["volunteer type", "v"],
         prepare(value, label) {
-            return extract(label, value).trim();
+            let newValue = extract(label, value).trim();
+            newValue = newValue.replace(manySpacesRegex, " ");
+            return newValue;
         },
         validate: {
             input: [

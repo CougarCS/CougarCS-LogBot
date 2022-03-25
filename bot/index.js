@@ -1,3 +1,5 @@
+console.log(process.pid); // DO NOT DELETE!
+
 // Environment variables.
 require('dotenv').config();
 const createLogger = require('../logger');
