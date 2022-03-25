@@ -20,11 +20,16 @@ Navigate into the directory and create a virtual environment. You can name it wh
 ```
 cd CougarCS-LogBot
 python -m venv venv
+source venv/bin/activate 
 ```
 
-Install python and node dependencies:
+Note: The last command activates your virtual environment. I'm using Linux, it's different for other platforms. 
 
-```
+See for full explanation: https://www.infoworld.com/article/3239675/virtualenv-and-venv-python-virtual-environments-explained.html
+
+Next, install python and node dependencies:
+
+``` 
 pip install -r requirements.txt
 npm install
 ```
@@ -89,19 +94,10 @@ The bot and the API run in two separate terminal sessions. You can run the bot v
 ```
 node bot/index.js
 ```
-You can run the API by first activating your virtual environment, and then running flask. Since I named my virtual environments `venv`, that's what I'll be using below, if your virtual environment has a different name, us that instead.
+You can run the API by first ensuring your virtual environment is active, and then running flask. 
 
-Windows OS:
-
-```
-venv/Scripts/activate
-flask run
-```
-
-Linux and Mac OS:
 
 ```
-venv/bin/activate
 flask run
 ```
 
