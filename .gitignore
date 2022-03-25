@@ -6,7 +6,8 @@ server
 *.pyc 
 api/populate_db
 hidden
-
+api.out
+bot.out
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,pycharm+all,python,node,flask
