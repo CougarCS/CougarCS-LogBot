@@ -3,7 +3,8 @@
 ## Version 1.1.3 - 3/25/2022
 
 -   The `Duration` field can be abbreviated using the character `d`.
--   The `$stats` command will now use log history has the single source of truth.
+-   The `in person` volunteer type can optionally be hyphenated.
+-   The `$stats` command will now use log history as the single source of truth.
 -   The `$stats` command will now accept an optional argument called `since`
 -   The `$stats` command will now accept an optional argument called `user`.
 -   The `$stats` command will accept arguments in any combination.

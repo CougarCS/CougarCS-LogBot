@@ -4,7 +4,7 @@ CougarCS-LogBot is an Discord bot that helps CougarCS volunteers log their hours
 
 ## Installation
 
-You'll need to have NodeJS and Python 3.7+ to edit or run this project. You can get those here:
+You'll need to have the NodeJS 11.0.0+ and Python 3.7+ to edit or run this project. You can get those here:
 
 * https://www.python.org/downloads/
 * https://nodejs.org/en/

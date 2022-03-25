@@ -38,6 +38,7 @@ const PRO_TIPS = [
     "You can submit the \`Name\` field on its own.",
     "Did you know that the \`$stats\` command has optional arguments? To learn more, use \`$help stats\` or visit the docs: <https://tinyurl.com/cmddocs3>",
     "If you want to see your stats since a specific date, you can use an optional argument of the `stats` command. For example: Typing \`$stats 1/2/2022\` will get the stats only since January 2nd, 2022.",
+    "Did you know that the `Duration` field tries to convert your input into `Xm Yh` format if possible? All of these resolve to `1h 30m`: \n```\n1h 30m\n1 h 30 m\n1 hr 30 min\n1 hrs 30 mins\n1 hour 30 minute\n1 hours 30 minutes```",
     "Whatever you do, don't use the `$ping` command!",
     "If you reached out more than once, instead of posting several log requests, use the \`Outreach Count\` field.",
     "Did you know that if you use the `Outreach Count` field without stating the volunteer type, the log request will *assume* it's an outreach log?",
