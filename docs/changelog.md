@@ -1,6 +1,6 @@
 # Change Log
 
-## Version 1.1.3 - _Unreleased_
+## Version 1.1.3 - 3/25/2022
 
 -   The `Duration` field can be abbreviated using the character `d`.
 -   The `$stats` command will now use log history has the single source of truth.
@@ -18,8 +18,11 @@
 -   Improved security in the API layer.
 -   Documentation links now point to CougarCS repository.
 -   Documentation has been updated to reflect new functionality.
--   Several protips have been updated. And a few new protips have been added.
+-   Protips have been updated to reflect the current state of the bot.
+-   New protips have been added.
 -   Database has been indexed by discord ID to improve processing time.
+-   API will now load environment variables independently.
+-   Both the Log Bot and API have migrated to an official CougarCS server.
 
 ## Version 1.1.2 - 9/25/2021
 

@@ -79,7 +79,7 @@ Field names can be abbreviated, like so:
 n: John Doe
 dt: 03/08/2020
 v: text
-dr: 1h 30m
+d: 1h 30m
 c: Helped someone with linked lists.
 
 ✅
@@ -496,6 +496,19 @@ Comment: Helped someone with linked lists.
 ⚠️
 ```
 
+The `Duration` field will convert input to `Xh Ym` format *if possible*. The following all resolve to `1h 30m`:
+
+```
+Duration: 1h 30m
+Duration: 1  h   30  m
+Duration: 1hr 30min
+Duration: 1  hr   30  min
+Duration: 1hour 30minute
+Duration: 1  hour   30  minute
+Duration: 1hours 30minutes
+Duration: 1  hours   30  minutes
+```
+
 The `Duration` field should have no more than one `h` value or `m` value.
 
 ```
@@ -604,6 +617,18 @@ The `Duration` field can be omitted if the `Volunteer Type` field evaluates to "
 Name: John Doe
 Date: 3/8/2020
 Volunteer Type: outreach
+Comment: Helped someone with linked lists.
+
+✅
+```
+
+The `Duration` field can be abbreviated to the letters `d` (case insensitive).
+
+```
+Name: John Doe
+Date: 3/8/2020
+Volunteer Type: text
+d: 1h 30m
 Comment: Helped someone with linked lists.
 
 ✅
