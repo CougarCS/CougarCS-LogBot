@@ -305,6 +305,7 @@ def get_user_stats_v2(discord_id, since_date):
         result = list(log_col.aggregate(pipeline))
         if len(result) == 0:
             result.append({"duration": 0, "outreach_count": 0})
+        response_obj["data_retrieved"] = True
         response_obj["body"] = [result[0]["duration"], result[0]["outreach_count"]]
         return json_response(response_obj), s.HTTP_200_OK
 
